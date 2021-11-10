@@ -1,0 +1,14 @@
+server:
+  port: 10244
+spring:
+  mail:
+    #服务器
+    host: pop3.163.com
+    #端口号
+    port: 110
+    #发送者的邮件的用户名
+    username: bnm159280@163.com
+    #使用的编码
+    default-encoding: utf-8
+    #移动端客户授权码(在邮箱中设置)
+    password: TLPHWSSHDUPVACATA
