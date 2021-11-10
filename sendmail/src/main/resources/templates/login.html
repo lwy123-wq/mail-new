@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background:-webkit-linear-gradient(#d67a47,red);/*for safari5.1-6.0*/
+
+            background:-o-linear-gradient(#d67a47,red);/*Opera 11.1-12.0*/
+
+            background:-moz-linear-gradient(#d67a47,red);/*firefox 3.6-15*/
+
+            background:linear-gradient(#d67a47,red);/*标准语法，必须放在最后*/
+        }
+        .boxx {
+            position: relative;
+            width: 1550px;
+            height: 800px;
+            background: url("../static/file/beijing.jpg") no-repeat;
+            background-size: 80% 100%;
+            margin: 0 157px;
+
+        }
+
+        .box{
+            width: 300px;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            transform: translate(-50%,-50%);
+            background-color: #00000068;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .right {
+            width: 400px;
+            height: 370px;
+            position: absolute;
+            top: 27%;
+            right: 23%;
+            background-color: #00000068;
+            text-align: center;
+
+        }
+        .box input[type = "text"],.box input[type = "password"],.box input[type="email"]{
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #c8d6e5;
+            padding: 14px 10px;
+            outline: none;
+            color: #c8d6e5;
+            border-radius: 24px;
+            transition: 0.25s;
+        }
+        h1{
+            color: #FFFFFF;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .box input[type = "text"]:focus, .box input[type = "password"]:focus,.box input[type="email"]:focus{
+            width: 280px;
+            border-color: #FFFFFF;
+        }
+        .box input[type = "submit"]{
+            border: 0;
+            font-size: 17px;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #FFFFFF;
+            padding: 14px 40px;
+            outline: none;
+            color: #ffffff;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer;
+        }
+        .box input[type = "submit"]:hover{
+            background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            font-size: x-large;
+        }
+        p {
+            margin: 40px 40px;
+            color: #FFFFFF;
+        }
+        a {
+            text-decoration: none;
+            color: #3592c4;
+        }
+
+    </style>
+</head>
+<body>
+<div class="boxx">
+    <form class="box" onsubmit="return false" action="#" method="post">
+        <h1>Login</h1>
+        <input type="email" id="email" placeholder="email"/>
+        <input type="password"id="password"placeholder="UserPassword" />
+
+         <input id="submit"  type="submit"  value="Login" />
+
+    </form>
+
+</div>
+<script>
+
+</script>
+</body>
+</html>
