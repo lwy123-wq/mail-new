@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import org.springframework.stereotype.Service;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -9,12 +11,13 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Service
 public class ReceiveService {
     /**
      * 解析邮件
      * @param messages 要解析的邮件列表
      */
-    public static void deleteMessage(Message...messages) throws MessagingException, IOException {
+    public void deleteMessage(Message...messages) throws MessagingException, IOException {
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
 
@@ -39,7 +42,7 @@ public class ReceiveService {
      * @param msg 邮件内容
      * @return 解码后的邮件主题
      */
-    public static String getSubject(MimeMessage msg) throws UnsupportedEncodingException, MessagingException {
+    public String getSubject(MimeMessage msg) throws UnsupportedEncodingException, MessagingException {
         return MimeUtility.decodeText(msg.getSubject());
     }
 
@@ -50,7 +53,7 @@ public class ReceiveService {
      * @throws MessagingException
      * @throws UnsupportedEncodingException
      */
-    public static String getFrom(MimeMessage msg) throws MessagingException, UnsupportedEncodingException {
+    public String getFrom(MimeMessage msg) throws MessagingException, UnsupportedEncodingException {
         String from = "";
         Address[] froms = msg.getFrom();
         if (froms.length < 1)
@@ -78,7 +81,7 @@ public class ReceiveService {
      * @return 收件人1 <邮件地址1>, 收件人2 <邮件地址2>, ...
      * @throws MessagingException
      */
-    public static String getReceiveAddress(MimeMessage msg, Message.RecipientType type) throws MessagingException {
+    public String getReceiveAddress(MimeMessage msg, Message.RecipientType type) throws MessagingException {
         StringBuffer receiveAddress = new StringBuffer();
         Address[] addresss = null;
         if (type == null) {
@@ -105,7 +108,7 @@ public class ReceiveService {
      * @return yyyy年mm月dd日 星期X HH:mm
      * @throws MessagingException
      */
-    public static String getSentDate(MimeMessage msg, String pattern) throws MessagingException {
+    public String getSentDate(MimeMessage msg, String pattern) throws MessagingException {
         Date receivedDate = msg.getSentDate();
         if (receivedDate == null)
             return "";
@@ -123,7 +126,7 @@ public class ReceiveService {
      * @throws MessagingException
      * @throws IOException
      */
-    public static boolean isContainAttachment(Part part) throws MessagingException, IOException {
+    public boolean isContainAttachment(Part part) throws MessagingException, IOException {
         boolean flag = false;
         if (part.isMimeType("multipart/*")) {
             MimeMultipart multipart = (MimeMultipart) part.getContent();
@@ -160,7 +163,7 @@ public class ReceiveService {
      * @return 如果邮件已读返回true,否则返回false
      * @throws MessagingException
      */
-    public static boolean isSeen(MimeMessage msg) throws MessagingException {
+    public boolean isSeen(MimeMessage msg) throws MessagingException {
         return msg.getFlags().contains(Flags.Flag.SEEN);
     }
 
@@ -170,7 +173,7 @@ public class ReceiveService {
      * @return 需要回执返回true,否则返回false
      * @throws MessagingException
      */
-    public static boolean isReplySign(MimeMessage msg) throws MessagingException {
+    public boolean isReplySign(MimeMessage msg) throws MessagingException {
         boolean replySign = false;
         String[] headers = msg.getHeader("Disposition-Notification-To");
         if (headers != null)
@@ -184,7 +187,7 @@ public class ReceiveService {
      * @return 1(High):紧急  3:普通(Normal)  5:低(Low)
      * @throws MessagingException
      */
-    public static String getPriority(MimeMessage msg) throws MessagingException {
+    public String getPriority(MimeMessage msg) throws MessagingException {
         String priority = "普通";
         String[] headers = msg.getHeader("X-Priority");
         if (headers != null) {
@@ -206,7 +209,7 @@ public class ReceiveService {
      * @throws MessagingException
      * @throws IOException
      */
-    public static void getMailTextContent(Part part, StringBuffer content) throws MessagingException, IOException {
+    public void getMailTextContent(Part part, StringBuffer content) throws MessagingException, IOException {
         //如果是文本类型的附件，通过getContent方法可以取到文本内容，但这不是我们需要的结果，所以在这里要做判断
         boolean isContainTextAttach = part.getContentType().indexOf("name") > 0;
         if (part.isMimeType("text/*") && !isContainTextAttach) {
@@ -232,7 +235,7 @@ public class ReceiveService {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static void saveAttachment(Part part, String destDir) throws UnsupportedEncodingException, MessagingException,
+    public void saveAttachment(Part part, String destDir) throws UnsupportedEncodingException, MessagingException,
             FileNotFoundException, IOException {
         if (part.isMimeType("multipart/*")) {
             Multipart multipart = (Multipart) part.getContent();    //复杂体邮件
@@ -268,7 +271,7 @@ public class ReceiveService {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    private static void saveFile(InputStream is, String destDir, String fileName)
+    private void saveFile(InputStream is, String destDir, String fileName)
             throws FileNotFoundException, IOException {
         BufferedInputStream bis = new BufferedInputStream(is);
         BufferedOutputStream bos = new BufferedOutputStream(
@@ -288,7 +291,7 @@ public class ReceiveService {
      * @return 解码后的文本
      * @throws UnsupportedEncodingException
      */
-    public static String decodeText(String encodeText) throws UnsupportedEncodingException {
+    public String decodeText(String encodeText) throws UnsupportedEncodingException {
         if (encodeText == null || "".equals(encodeText)) {
             return "";
         } else {
