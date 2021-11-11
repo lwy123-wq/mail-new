@@ -30,6 +30,7 @@ public class ReceiveController {
         // 创建Session实例对象
         Session session = Session.getInstance(props);
         Store store = session.getStore("pop3");
+        System.out.println(receive.getUsername());
         store.connect(receive.getUsername(), receive.getPassword()); //163邮箱程序登录属于第三方登录所以这里的密码是163给的授权密码而并非普通的登录密码
         // 获得收件箱
         folder = store.getFolder("INBOX");
@@ -40,6 +41,7 @@ public class ReceiveController {
         ArrayList<Integer> list=new ArrayList<>();
         //未读邮件数
         int f1=folder.getUnreadMessageCount();
+        System.out.println(f1);
         list.add(f1);
         //删除邮件数
         int f2=folder.getDeletedMessageCount();
