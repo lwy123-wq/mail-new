@@ -49,12 +49,103 @@
         height: 30px;
         font:normal normal normal 14px/20px 'Microsoft YaHei';
     }
+    body {
+        background: url("../static/file/two.png");
+        padding: 50px;
+    }
+    .ccontainer {
+        width: 500px;
+        margin: 50px 619px;
+    }
+    .lanmu {
+        position: absolute;
+        top:106px;
+        left: 176px;
+        float: left;
+        width:300px;
+        height: 446px;
+        margin:56px 64px 0px 118px;
+
+        background-color: #f1f1f1;
+    }
+    .lanmu p {
+        font-size: 10px;
+        color: #3c3f41;
+    }
+    .top {
+        height: 250px;
+
+    }
+    .ti {
+        line-height: 40px;
+        height:40px ;
+        background-color:skyblue;
+        color: white;
+    }
+    .home {
+        margin-left: 90px;
+        margin-top:10px;
+        float: left;
+        width: 30px;
+        height: 20px;
+        /*background-image: url("../static/images/home.png ");*/
+    }
+    ul {
+        list-style: none;
+    }
+    ul li {
+        height: 30px;
+        width:220px;
+        margin-top:10px;
+        line-height: 35px;
+        border-bottom: 1px solid skyblue;
+        font-size: 15px;
+        text-align: center;
+    }
+    .bot {
+
+        line-height: 40px;
+        height:40px ;
+        background-color:skyblue;
+        color: white;
+
+    }
+
+    .relate {
+        margin-left: 90px;
+        margin-top:10px;
+        float: left;
+        width: 30px;
+        height: 20px;
+        /*background-image: url("../static/images/relate.png");*/
+    }
+    .one {
+        font-weight: 800;
+        color: skyblue;
+    }
+
+
 </style>
 <body>
+<div id="ap">
+    <div class="lanmu">
+        <div class="top">
+            <div class="ti">
+                <div class="home"></div>发件箱
+            </div>
+            <ul>
+
+            </ul>
+        </div>
+
+
+
+    </div>
+</div>
 <div class="text-center">
     <b style="font-size: 20px;">发邮件</b>
 </div>
-<div class="container">
+<div class="ccontainer">
     <form id="emailForm" enctype="multipart/form-data">
         <div class="form-group ">
             <label for="toPerson" style="font-size: 18px;">收件人 </label>
@@ -119,6 +210,26 @@
             })
         })
     })
+    var commi = document.querySelector('#comment');
+    var sub =document.querySelector('#submitEmail');
+    var ul =document.querySelector('ul');
+    sub.onclick = function () {
+      var li =document.createElement('li');
+
+
+      ul.appendChild(li);
+      li.innerHTML=commi.value+'<a href ="javascript:;" style="float: right">x</a>';
+        var a =document.querySelectorAll('a');
+        for (var i=0;i<a.length;i++)
+        {
+            a[i].onclick = function () {
+                ul.removeChild(this.parentNode);
+            }
+        }
+
+    }
+
+
 </script>
 </body>
 </html>
