@@ -15,9 +15,15 @@
                 type: 'POST',
                 success: function (res) {
                     if(res!=null){
-
                         var p = document.querySelector('.lanmu').querySelectorAll('p');
+                        for(var i=0;i<4;i++)
+                        {
+                            var span =document.createElement('span');
+                            p[i].appendChild(span);
+                            span.innerHTML=res[i];
+                        }
 
+                       messages();
                     }else{
                         alert("error");
                     }
@@ -42,7 +48,18 @@
                 }
             });
         }
-
+        function messages(){
+            $.ajax({
+                url: "/messages",
+                type: 'POST',
+                success: function (res) {
+                    alert(res)
+                },
+                error: function (res) {
+                    alert("error!!!!!")
+                }
+            });
+        }
 
     </script>
 </head>

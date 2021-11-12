@@ -2,6 +2,8 @@ server:
   port: 10224
 
 spring:
+  mvc:
+    static-path-pattern=/static/**:
   mail:
     #邮件协议smtp
     host: smtp.163.com
