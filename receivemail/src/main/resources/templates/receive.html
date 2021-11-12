@@ -15,12 +15,9 @@
                 type: 'POST',
                 success: function (res) {
                     if(res!=null){
-                      alert(res);
+
                         var p = document.querySelector('.lanmu').querySelectorAll('p');
-                        for (k in res[i])
-                        {
-                            p[i].innerHTML=res[i][k];
-                        }
+
                     }else{
                         alert("error");
                     }
