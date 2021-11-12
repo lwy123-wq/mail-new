@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.ReceiveService;
 import com.example.demo.util.Receive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.mail.*;
+import java.io.IOException;
+import java.security.interfaces.RSAKey;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -15,7 +18,10 @@ import java.util.Properties;
 public class ReceiveController {
     @Autowired
     private Receive receive;
+    @Autowired
+    private ReceiveService service;
     Folder folder;
+    Message[] messages;
     @RequestMapping("/")
     public String sayHello(){
         return "receive";
@@ -55,11 +61,19 @@ public class ReceiveController {
         return list;
 
     }
+    @PostMapping(value = "/messages")
+    @ResponseBody
     public String messages() throws MessagingException {
         // 得到收件箱中的所有邮件,并解析
-        Message[] messages = folder.getMessages();
+        messages = folder.getMessages();
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
         return null;
+    }
+    @PostMapping(value = "/delete")
+    @ResponseBody
+    public void delete() throws IOException, MessagingException {
+        service.deleteMessage(messages);
+
     }
 }

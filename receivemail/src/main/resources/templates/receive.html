@@ -31,6 +31,21 @@
             });
         }
   receive();
+    </script>
+    <script type="text/javascript">
+        function delete1(){
+            $.ajax({
+                url: "/delete",
+                type: 'POST',
+                success: function (res) {
+
+                },
+                error: function (res) {
+                    alert("error!!!!!")
+                }
+            });
+        }
+
 
     </script>
 </head>
