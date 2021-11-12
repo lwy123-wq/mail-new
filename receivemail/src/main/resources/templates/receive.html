@@ -44,16 +44,91 @@
 
                 },
                 error: function (res) {
-                    alert("error!!!!!")
+                    alert("未找到要解析的邮件!")
                 }
             });
         }
+
         function messages(){
             $.ajax({
                 url: "/messages",
                 type: 'POST',
                 success: function (res) {
                     alert(res)
+                    var commi = document.querySelector('#comment');//zhuti
+
+                    var ul = document.querySelector('ul');
+                    var toPerson = document.querySelector('#toPerson');
+                    var comments = document.querySelector('#comments');
+                    var number = document.querySelector('#number');
+                    // console.log(parseInt(number.children[0].innerHTML));
+                    for (var i = 0; i < 2; i++) {
+
+                        var li = document.createElement('li');//zhuti
+                        var span = document.createElement('span');//people
+                        var time = document.createElement('span');
+                        var div = document.createElement('div');//comments
+
+
+                        ul.appendChild(li);
+                        ul.appendChild(span);
+                        ul.appendChild(div);
+                        ul.appendChild(time);
+                        li.innerHTML = res[0] + '<a href ="javascript:;" style="float: right" >x</a>';
+                        span.innerHTML = res[1];//people
+                        div.innerHTML = res[5];//conmments
+                        time.innerHTML = res[3];
+                        time.style.marginLeft='0';
+                        span.className = 'none';
+                        div.className = 'none';
+
+                        var a = document.querySelectorAll('a');
+                        for (var i = 0; i < a.length; i++) {
+                            a[i].onclick = function () {
+                                ul.removeChild(this.parentNode);
+                            }
+                        }
+                        var lis = document.querySelectorAll('li');
+                        var form = document.querySelector('#form-group');
+                        if (comments.innerHTML === '') {
+                            form.style.display = 'block';
+                        } else {
+                            form.style.display = 'none';
+                        }
+
+                        for (var i = 0; i < lis.length; i++) {
+                            lis[i].setAttribute('index', i);
+                            lis[i].onclick = function () {
+                                var index = this.getAttribute('index');
+                                var form = document.querySelector('#form-group');
+                                if (lis[index].nextElementSibling.nextElementSibling.innerHTML == '') {
+                                    form.style.display = 'block';
+                                } else {
+                                    form.style.display = 'none';
+                                }
+                                console.log(lis[index].children[0]);
+                                toPerson.value = lis[index].nextElementSibling.innerHTML;
+                                comments.value = lis[index].nextElementSibling.nextElementSibling.innerHTML;
+                                lis[index].children[0].className = 'a';
+
+                                commi.value = lis[index].innerText;
+
+                            }
+
+                        }
+
+                    }
+                },
+                error: function (res) {
+                    alert("error!!!!!")
+                }
+            });
+        }
+        function download(){
+            $.ajax({
+                url: "/download",
+                type: 'POST',
+                success: function (res) {
                 },
                 error: function (res) {
                     alert("error!!!!!")
@@ -64,10 +139,15 @@
     </script>
 </head>
 <style>
+    .a {
+        display: none;
+
+    }
     body {
         height: 700px;
         padding: 100px;
         background: url("../static/file/fourr.png");
+        overflow: scroll;
     }
     /*蓝色按钮,绝对定位*/
     .blueButton
@@ -101,7 +181,7 @@
     .show
     {
         position: relative;
-        top:20px;
+        top:0px;
         left: 80px;
         width: 100%;
         height: 30px;
@@ -118,6 +198,7 @@
 
         background-color: #f1f1f1;
     }
+
     .lanmu p {
         font-size: 10px;
         color: #3c3f41;
@@ -142,6 +223,7 @@
     }
     ul {
         list-style: none;
+
     }
     ul li {
         height: 30px;
@@ -163,15 +245,22 @@
 
     .relate {
         margin-left: 90px;
-        margin-top:10px;
+        margin-top:0px;
         float: left;
-        width: 30px;
+        width: 100px;
         height: 20px;
         /*background-image: url("../static/images/relate.png");*/
     }
     .one {
         font-weight: 800;
         color: skyblue;
+    }
+    .none {
+        opacity: 0;
+        position: absolute;
+        top:0;
+        left:0;
+
     }
     .ccontainer {
         float: right;
@@ -182,12 +271,13 @@
         margin-left: 104px;
         margin-top: 10px;
     }
+
 </style>
 <body>
 <div class="text-center">
     <b style="font-size: 20px;margin-top: 50px">收件箱</b>
 </div>
-<div id="ap">
+<div id="ap" style="width: 600px">
     <div class="lanmu">
         <div class="top">
             <div class="ti">
@@ -197,13 +287,13 @@
 
             </ul>
         </div>
-        <div class="bot">
-            <div class="relate"></div>邮件
+        <div class="bot" onclick="delete1()">
+            <div class="relate">全部删除</div>
         </div>
         <p>未读邮件数：</p>
         <p>删除邮件数：</p>
         <p>新邮件：</p>
-        <p>邮件总数：</p>
+        <p id ="number">邮件总数：</p>
 
     </div>
 </div>
@@ -219,13 +309,13 @@
             <input type="text" name="subject" id="comment" class="input-lg form-control" disabled="disabled">
 
         </div>
-<!--        <div class="form-group ">-->
-<!--            &lt;!&ndash;<input type="file" name="file" multiple="multiple"  value="添加附件" id="file">&ndash;&gt;-->
-<!--            <a href='javascript:void(0);' class="blueButton">-->
-<!--                <span class="glyphicon glyphicon-link" style="opacity: 0"></span> 添加附件</a>-->
-<!--            <input type="file" name="file"  class="myFileUpload" multiple="multiple" id="file" />-->
+        <div class="form-group " le="display: none" id="form-group">
+            <!--<input type="file" name="file" multiple="multiple"  value="添加附件" id="file">-->
+            <a href='javascript:void(0);' class="blueButton">
+                <span class="glyphicon glyphicon-link" onclick="download()"></span>此处有附件</a>
+<!--            <input type="file" name="file"  class="myFileUpload" multi="multiple" id="file" />-->
 <!--            <div class="show"></div>-->
-<!--        </div>-->
+        </div>
         <div class="col-12 form-group">
             <p ><b style="font-size: 18px;">正文</b> </p>
             <textarea  name="contentText" id="comments" class="input-lg form-control"rows="8" style="max-width: 100%;resize: none"  ></textarea>

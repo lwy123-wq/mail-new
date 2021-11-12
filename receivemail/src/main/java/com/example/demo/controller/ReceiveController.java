@@ -13,20 +13,17 @@ import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.interfaces.RSAKey;
 import java.util.ArrayList;
-import java.util.Properties;
 
 @Controller
 public class ReceiveController {
     @Autowired
-    private Receive receive;
-    @Autowired
     private ReceiveService service;
     @Autowired
     private UserService userService;
-    Message[] messages;
-    MimeMessage msg;
+    static Folder folder;
+    static Message[] messages;
+    static MimeMessage msg;
     @RequestMapping("/")
     public String sayHello(){
         return "receive";
@@ -35,7 +32,7 @@ public class ReceiveController {
     @ResponseBody
     public ArrayList<Integer> send() throws Exception {
         ArrayList<Integer> list=new ArrayList<>();
-        Folder folder=userService.user();
+        folder=userService.user();
         //未读邮件数
         int f1=folder.getUnreadMessageCount();
         System.out.println(f1);
@@ -55,7 +52,7 @@ public class ReceiveController {
     }
     @PostMapping(value = "/messages")
     @ResponseBody
-    public ArrayList<String> messages() throws MessagingException, UnsupportedEncodingException {
+    public ArrayList<String> messages() throws MessagingException, IOException {
         ArrayList<String> list=new ArrayList<>();
         /*// 得到收件箱中的所有邮件,并解析
         Properties props = new Properties();
@@ -73,7 +70,7 @@ public class ReceiveController {
          * Folder.READ_WRITE：可读可写（可以修改邮件的状态）
          *//*
         folder.open(Folder.READ_WRITE);*/
-        Folder folder=userService.user();
+        folder=userService.user();
         messages = folder.getMessages();
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
@@ -84,20 +81,38 @@ public class ReceiveController {
             String receive=service.getReceiveAddress(msg, null);   //收件人
             String time=service.getSentDate(msg, null);   //发送时间
             String size=msg.getSize() * 1024 + "kb";
+            StringBuffer content = new StringBuffer(30);
+            service.getMailTextContent(msg, content);
+            String text=(content.length() > 100 ? content.substring(0,100) + "..." : String.valueOf(content)); //邮件正文
             list.add(subject);
             list.add(from);
             list.add(receive);
             list.add(time);
             list.add(size);
-
+            list.add(text);
         }
         return list;
     }
     @PostMapping(value = "/delete")
     @ResponseBody
     public void delete() throws IOException, MessagingException {
+        folder=userService.user();
+        messages = folder.getMessages();
+        System.out.println("dddddddddddddddddddddddddddddddddddddddllllllllllllllllllllll");
         service.deleteMessage(messages);
+        //释放资源
+        folder.close(true);
+        userService.getStore().close();
 
+    }
+    @PostMapping(value = "/download")
+    @ResponseBody
+    public void Download() throws IOException, MessagingException {
+        boolean isContainerAttachment = service.isContainAttachment(msg);
+        int i=0;
+        if(isContainerAttachment){
+            service.saveAttachment(msg, "/home/lwy/文档/aaa/文件/"+msg.getSubject()+i++);
+        }
     }
 
 }

@@ -12,6 +12,16 @@ public class UserService {
     Folder folder;
     @Autowired
     private Receive receive;
+    private Store store;
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
     public Folder user() throws MessagingException {
         // 得到收件箱中的所有邮件,并解析
         Properties props = new Properties();
@@ -20,7 +30,7 @@ public class UserService {
         props.setProperty("mail.pop3.host", receive.getServicePath());    // pop3服务器
         // 创建Session实例对象
         Session session = Session.getInstance(props);
-        Store store = session.getStore("pop3");
+        store = session.getStore("pop3");
         System.out.println(receive.getUsername());
         store.connect(receive.getUsername(), receive.getPassword()); //163邮箱程序登录属于第三方登录所以这里的密码是163给的授权密码而并非普通的登录密码
         // 获得收件箱
