@@ -1,6 +1,8 @@
 server:
   port: 10244
 spring:
+  mvc:
+    static-path-pattern=/static/**:
   mail:
     #服务器
     host: pop3.163.com
