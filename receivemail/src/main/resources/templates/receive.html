@@ -65,11 +65,11 @@
                     var toPerson = document.querySelector('#toPerson');
                     var comments = document.querySelector('#comments');
                     var number = document.querySelector('#number');
-                    // console.log(parseInt(number.children[0].innerHTML));
+                    alert((res.length)/6-1);
 
 
 
-                        for(var i=(res.length)/6-1;i>=0;i--) {
+                        for(var j=(res.length)/6-1;j>=0;j--) {
                             var li = document.createElement('li');//zhuti
                             var span = document.createElement('span');//people
                             var time = document.createElement('span');
@@ -80,10 +80,10 @@
                             ul.appendChild(span);
                             ul.appendChild(div);
                             ul.appendChild(time);
-                            li.innerHTML = res[i] + '<a href ="javascript:;" style="float: right" >x</a>';
-                            span.innerHTML = res[1+i*6];//people
-                            div.innerHTML = res[5+i*6];//conmments
-                            time.innerHTML = res[3+i*6];
+                            li.innerHTML = res[0+j*6] + '<a href ="javascript:;" style="float: right" >x</a>';
+                            span.innerHTML = res[1+j*6];//people
+                            div.innerHTML = res[5+j*6];//conmments
+                            time.innerHTML = res[3+j*6];
 
 
                             time.style.marginLeft = '0';
@@ -283,6 +283,7 @@
 
 </style>
 <body>
+
 <div class="text-center">
     <b style="font-size: 20px;margin-top: 50px">收件箱</b>
 </div>
