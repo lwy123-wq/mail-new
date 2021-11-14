@@ -23,10 +23,9 @@
                             span.innerHTML=res[i];
                         }
                         console.log(res[3]);
-                      for (var i=0;i<res[3];i++)
-                      {
+
                           messages();
-                      }
+
 
                     }else{
                         alert("error");
@@ -58,7 +57,8 @@
                 url: "/messages",
                 type: 'POST',
                 success: function (res) {
-                    alert(res)
+                    alert(res);
+                    alert(res.length);
                     var commi = document.querySelector('#comment');//zhuti
 
                     var ul = document.querySelector('ul');
@@ -68,59 +68,64 @@
                     // console.log(parseInt(number.children[0].innerHTML));
 
 
-                        var li = document.createElement('li');//zhuti
-                        var span = document.createElement('span');//people
-                        var time = document.createElement('span');
-                        var div = document.createElement('div');//comments
+
+                        for(var i=(res.length)/6-1;i>=0;i--) {
+                            var li = document.createElement('li');//zhuti
+                            var span = document.createElement('span');//people
+                            var time = document.createElement('span');
+                            var div = document.createElement('div');//comments
 
 
-                        ul.appendChild(li);
-                        ul.appendChild(span);
-                        ul.appendChild(div);
-                        ul.appendChild(time);
-                        li.innerHTML = res[0] + '<a href ="javascript:;" style="float: right" >x</a>';
-                        span.innerHTML = res[1];//people
-                        div.innerHTML = res[5];//conmments
-                        time.innerHTML = res[3];
-                        time.style.marginLeft='0';
-                        span.className = 'none';
-                        div.className = 'none';
+                            ul.appendChild(li);
+                            ul.appendChild(span);
+                            ul.appendChild(div);
+                            ul.appendChild(time);
+                            li.innerHTML = res[i] + '<a href ="javascript:;" style="float: right" >x</a>';
+                            span.innerHTML = res[1+i*6];//people
+                            div.innerHTML = res[5+i*6];//conmments
+                            time.innerHTML = res[3+i*6];
 
-                        var a = document.querySelectorAll('a');
-                        for (var i = 0; i < a.length; i++) {
-                            a[i].onclick = function () {
-                                ul.removeChild(this.parentNode);
-                            }
-                        }
-                        var lis = document.querySelectorAll('li');
-                        var form = document.querySelector('#form-group');
-                        if (comments.innerHTML === '') {
-                            form.style.display = 'block';
-                        } else {
-                            form.style.display = 'none';
-                        }
 
-                        for (var i = 0; i < lis.length; i++) {
-                            lis[i].setAttribute('index', i);
-                            lis[i].onclick = function () {
-                                var index = this.getAttribute('index');
-                                var form = document.querySelector('#form-group');
-                                if (lis[index].nextElementSibling.nextElementSibling.innerHTML == '') {
-                                    form.style.display = 'block';
-                                } else {
-                                    form.style.display = 'none';
+                            time.style.marginLeft = '0';
+                            span.className = 'none';
+                            div.className = 'none';
+
+                            var a = document.querySelectorAll('a');
+                            for (var i = 0; i < a.length; i++) {
+                                a[i].onclick = function () {
+                                    ul.removeChild(this.parentNode);
                                 }
-                                console.log(lis[index].children[0]);
-                                toPerson.value = lis[index].nextElementSibling.innerHTML;
-                                comments.value = lis[index].nextElementSibling.nextElementSibling.innerHTML;
-                                lis[index].children[0].className = 'a';
+                            }
+                            var lis = document.querySelectorAll('li');
+                            var form = document.querySelector('#form-group');
+                            if (comments.innerHTML === '') {
+                                form.style.display = 'block';
+                            } else {
+                                form.style.display = 'none';
+                            }
 
-                                commi.value = lis[index].innerText;
+                            for (var i = 0; i < lis.length; i++) {
+                                lis[i].setAttribute('index', i);
+                                lis[i].onclick = function () {
+                                    var index = this.getAttribute('index');
+                                    var form = document.querySelector('#form-group');
+                                    if (lis[index].nextElementSibling.nextElementSibling.innerHTML == '') {
+                                        form.style.display = 'block';
+                                    } else {
+                                        form.style.display = 'none';
+                                    }
+                                    console.log(lis[index].children[0]);
+                                    toPerson.value = lis[index].nextElementSibling.innerHTML;
+                                    comments.value = lis[index].nextElementSibling.nextElementSibling.innerHTML;
+                                    lis[index].children[0].className = 'a';
+
+                                    commi.value = lis[index].innerText;
+
+                                }
 
                             }
 
                         }
-
 
                 },
                 error: function (res) {
