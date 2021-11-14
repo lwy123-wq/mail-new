@@ -22,8 +22,12 @@
                             p[i].appendChild(span);
                             span.innerHTML=res[i];
                         }
+                        console.log(res[3]);
+                      for (var i=0;i<res[3];i++)
+                      {
+                          messages();
+                      }
 
-                       messages();
                     }else{
                         alert("error");
                     }
@@ -62,7 +66,7 @@
                     var comments = document.querySelector('#comments');
                     var number = document.querySelector('#number');
                     // console.log(parseInt(number.children[0].innerHTML));
-                    for (var i = 0; i < 2; i++) {
+
 
                         var li = document.createElement('li');//zhuti
                         var span = document.createElement('span');//people
@@ -117,7 +121,7 @@
 
                         }
 
-                    }
+
                 },
                 error: function (res) {
                     alert("未找到要解析的邮件!")
