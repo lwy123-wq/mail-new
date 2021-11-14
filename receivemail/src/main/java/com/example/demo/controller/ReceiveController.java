@@ -108,6 +108,7 @@ public class ReceiveController {
     @PostMapping(value = "/download")
     @ResponseBody
     public void Download() throws IOException, MessagingException {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         boolean isContainerAttachment = service.isContainAttachment(msg);
         int i=0;
         if(isContainerAttachment){
