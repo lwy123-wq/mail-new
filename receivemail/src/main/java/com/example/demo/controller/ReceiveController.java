@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.service.ReceiveService;
 import com.example.demo.service.UserService;
-import com.example.demo.util.Receive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 @Controller

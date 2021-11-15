@@ -3,11 +3,6 @@ package com.example.demo.util;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-import java.util.Properties;
-
 @Repository
 public class Receive {
     @Value("${spring.mail.port}")
