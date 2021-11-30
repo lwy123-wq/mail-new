@@ -81,7 +81,6 @@ public class ReceiveController {
     public void delete() throws IOException, MessagingException {
         folder=userService.user();
         messages = folder.getMessages();
-        System.out.println("dddddddddddddddddddddddddddddddddddddddllllllllllllllllllllll");
         service.deleteMessage(messages);
         //释放资源
         folder.close(true);
@@ -91,7 +90,6 @@ public class ReceiveController {
     @PostMapping(value = "/download")
     @ResponseBody
     public void Download() throws IOException, MessagingException {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         boolean isContainerAttachment = service.isContainAttachment(msg);
         int i=0;
         if(isContainerAttachment){

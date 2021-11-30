@@ -66,7 +66,6 @@ public class EmailService implements IEmailService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			//捕获到创建MimeMessageHelper的异常
-//			return false;
 		}
 		return true;
 	}
