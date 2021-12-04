@@ -60,11 +60,6 @@ public class UserController {
     public String login(){
         return "login" ;
     }
-
-
-
-
-
     /**
      * 上传文件
      * @param
