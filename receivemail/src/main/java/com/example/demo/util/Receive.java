@@ -5,10 +5,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class Receive {
+    //端口
     @Value("${spring.mail.port}")
     String port;
     @Value("${spring.mail.host}")
     String servicePath;
+    //用户名
     @Value("${spring.mail.username}")
     String username;
     @Value("${spring.mail.password}")
