@@ -22,6 +22,7 @@ public class ReceiveController {
     private UserService userService;
     static Folder folder;
     static Message[] messages;
+    //
     static MimeMessage msg;
     @RequestMapping("/")
     public String sayHello(){

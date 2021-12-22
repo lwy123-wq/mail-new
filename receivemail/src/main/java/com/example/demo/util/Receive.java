@@ -13,6 +13,7 @@ public class Receive {
     //用户名
     @Value("${spring.mail.username}")
     String username;
+    //密码
     @Value("${spring.mail.password}")
     String password;
 
