@@ -22,7 +22,6 @@ public class ReceiveController {
     private UserService userService;
     static Folder folder;
     static Message[] messages;
-    //
     static MimeMessage msg;
     @RequestMapping("/")
     public String sayHello(){
@@ -50,6 +49,8 @@ public class ReceiveController {
         return list;
 
     }
+    /**
+     * */
     @PostMapping(value = "/messages")
     @ResponseBody
     public ArrayList<String> messages() throws MessagingException, IOException {
