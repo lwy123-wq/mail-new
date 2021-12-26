@@ -49,8 +49,6 @@ public class ReceiveController {
         return list;
 
     }
-    /**
-     * */
     @PostMapping(value = "/messages")
     @ResponseBody
     public ArrayList<String> messages() throws MessagingException, IOException {
