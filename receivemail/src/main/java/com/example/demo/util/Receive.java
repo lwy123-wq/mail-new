@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class Receive {
-
     //端口
     @Value("${spring.mail.port}")
     String port;
