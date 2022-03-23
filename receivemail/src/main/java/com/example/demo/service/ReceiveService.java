@@ -13,6 +13,7 @@ import java.util.Date;
 
 @Service
 public class ReceiveService {
+
     /**
      * 解析邮件
      * @param messages 要解析的邮件列表
