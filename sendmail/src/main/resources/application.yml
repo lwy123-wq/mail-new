@@ -12,5 +12,5 @@ spring:
     #使用的编码
     default-encoding: utf-8
     #移动端客户授权码(在邮箱中设置)
-    password: TSVSWNMMIHUDHUYY
+    password: 0
 
